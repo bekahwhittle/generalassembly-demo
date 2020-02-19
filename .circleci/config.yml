@@ -21,8 +21,8 @@ workflows:
   build_and_test: 
     jobs: 
       - build
-      - test:
-          # now we're going to make sure that our test job doesn't run UNLESS our build passes
-          # what do you think will happen if we break our build job? 
-          requires:
-            - build
+      - test
+          # # now we're going to make sure that our test job doesn't run UNLESS our build passes
+          # # what do you think will happen if we break our build job? 
+          # requires:
+          #   - build
