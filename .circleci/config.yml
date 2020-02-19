@@ -24,6 +24,6 @@ workflows:
       # let's make sure that test only runs if build passes
       - test: 
           requires: 
-            build
+            - build
           
          
