@@ -14,7 +14,7 @@ jobs:
       - image: circleci/ruby:2.4-node
     steps: 
       - checkout
-      - run: "testing yoru code"
+      - run: echo "testing your code"
   # third job we're deploying our code to production!    
   deploy: 
     docker: 
