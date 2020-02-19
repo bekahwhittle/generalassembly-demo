@@ -12,6 +12,10 @@ jobs:
     steps: 
       - checkout
       - run: echo "testing your code"
-
-    
+workflows: 
+  version: 2.1
+  build_and_test: 
+    jobs: 
+      - build
+      - test
 # workflows iniated for simple demo of parallel runs 
