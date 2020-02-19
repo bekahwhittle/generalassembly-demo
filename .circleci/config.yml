@@ -1,3 +1,6 @@
+# let's use a simple hello world orb for a friendly message
+orbs:
+  hello-build: circleci/hello-build@0.0.14
 version: 2.1 
 # here we are going to set what we want to run - we call this 'jobs'
 jobs:
@@ -24,6 +27,9 @@ jobs:
 # to have these jobs work together we iniiate a 'workflow' where we call upon the jobs defined above
 workflows: 
   version: 2.1
+  hello_world: 
+    jobs: 
+      - hello-build/hello-build
   build_and_test: 
     jobs: 
       - build
