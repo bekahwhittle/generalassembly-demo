@@ -35,7 +35,7 @@ workflows:
   version: 2.1
   hello_world: 
     jobs: 
-      - hello-build
+      - hello-build/hello-build
   build_and_test: 
     jobs: 
       - build
