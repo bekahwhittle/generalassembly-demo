@@ -14,13 +14,13 @@ jobs:
       - image: circleci/ruby:2.4-node
     steps: 
       - checkout
-      - run: not a command
+      - run: "testing yoru code"
   # third job we're deploying our code to production!    
   deploy: 
     docker: 
       - image: circleci/ruby:2.4-node
     steps: 
-      - run: echo "deploy your code"
+      - run: echo "deploying your code"
 # to have these jobs work together we iniiate a 'workflow' where we call upon the jobs defined above
 workflows: 
   version: 2.1
