@@ -7,7 +7,7 @@ jobs:
       - image: circleci/ruby:2.4-node
     steps:
       - checkout
-      - run: echo "hello general assembly" 
+      - run: notacommand 
   # second job we have is a test job where we will also run a shell command
   test: 
     docker: 
@@ -22,5 +22,7 @@ workflows:
     jobs: 
       - build
       - test:
+          # now we're going to make sure that our test job doesn't run UNLESS our build passes
+          # what do you think will happen if we break our build job? 
           requires:
             - build
