@@ -44,9 +44,10 @@ workflows:
           requires: 
             - build
       - test_b: 
-          requires: 
-            - test_a
+          requires:
+            - build
       - deploy: 
-          requires: 
+          requires:
+            - test_a 
             - test_b          
          
