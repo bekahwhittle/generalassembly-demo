@@ -48,7 +48,8 @@ workflows:
       - test_b: 
           requires:
             - build
-      - deploy: 
+      - deploy:
+          type: approval
           requires:
             - test_a 
             - test_b          
