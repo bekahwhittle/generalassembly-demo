@@ -7,14 +7,20 @@ jobs:
       - image: circleci/ruby:2.4-node
     steps:
       - checkout
-      - run: notacommand 
+      - run: echo "building your code" 
   # second job we have is a test job where we will also run a shell command
   test: 
     docker: 
       - image: circleci/ruby:2.4-node
     steps: 
       - checkout
-      - run: echo "testing your code"
+      - run: not a command
+  # third job we're deploying our code to production!    
+  deploy: 
+    docker: 
+      - image: circleci/ruby:2.4-node
+    steps: 
+      - run: echo "deploy your code"
 # to have these jobs work together we iniiate a 'workflow' where we call upon the jobs defined above
 workflows: 
   version: 2.1
@@ -25,5 +31,8 @@ workflows:
       - test: 
           requires: 
             - build
+      - deploy: 
+          requires: 
+            - test
           
          
