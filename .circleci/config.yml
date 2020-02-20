@@ -38,7 +38,7 @@ workflows:
   hello_world: 
     jobs: 
       - hello-build/hello-build
-  build_and_test: 
+  build_test_deploy: 
     jobs: 
       - build
       # let's make sure that test only runs if build passes
@@ -48,6 +48,7 @@ workflows:
       - test_b: 
           requires:
             - build
+      # let's make sure we only deploy on master
       - deploy:
           type: approval
           branches:
