@@ -50,6 +50,9 @@ workflows:
             - build
       - deploy:
           type: approval
+          branches:
+            only:
+              - master
           requires:
             - test_a 
             - test_b          
