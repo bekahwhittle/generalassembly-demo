@@ -53,5 +53,3 @@ workflows:
           requires:
             - test_a 
             - test_b          
-         
->>>>>>> 53b6a0337d8015297efd43e77203468c8c7ed3b1
