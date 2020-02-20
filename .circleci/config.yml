@@ -27,7 +27,10 @@ jobs:
       - checkout
       - run: echo "this is test b"
   # third job we're deploying our code to production!    
-  deploy: 
+  deploy:     
+    branches:
+      only:
+        - master
     docker: 
       - image: circleci/ruby:2.4-node
     steps: 
@@ -51,9 +54,6 @@ workflows:
       # let's make sure we only deploy on master
       - deploy:
           type: approval
-          branches:
-            only:
-              - master
           requires:
             - test_a 
             - test_b          
