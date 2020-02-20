@@ -53,7 +53,7 @@ workflows:
           type: approval
           filters:
             branches:
-              only: stage
+              only: master
           requires:
             - test_a 
             - test_b          
