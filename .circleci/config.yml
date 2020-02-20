@@ -1,16 +1,57 @@
-version: 2.1
-jobs: 
+# let's use a simple hello world orb for a friendly message
+orbs:
+  hello-build: circleci/hello-build@0.0.14
+version: 2.1 
+# here we are going to set what we want to run - we call this 'jobs'
+jobs:
+  # first job we have is a build job where we will checkout the code then run a shell command
   build: 
     docker: 
-      - image: circleci/node:4.8.2
-    steps: 
-      - checkout # check out the code in the directory 
-      - run: echo "hello world"
-version: 2.1
-jobs:
-  build:
-    docker: 
-      - image: circleci/node:4.8.2 # the primary container, where your job's commands are run
+      - image: circleci/ruby:2.4-node
     steps:
-      - checkout # check out the code in the project directory
-      - run: echo "hello world" # run the `echo` command
+      - checkout
+      - run: echo "building your code" 
+  # second job we have is a test job where we will also run a shell command
+  test_a: 
+    docker: 
+      - image: circleci/ruby:2.4-node
+    parallelism: 3
+    steps: 
+      - checkout
+      - run: echo "this is test a"
+  test_b:
+    docker: 
+      - image: circleci/ruby:2.4-node
+    parallelism: 2
+    steps: 
+      - checkout
+      - run: echo "this is test b"
+  # third job we're deploying our code to production!    
+  deploy: 
+    docker: 
+      - image: circleci/ruby:2.4-node
+    steps: 
+      - run: echo "deploying your code"
+# to have these jobs work together we iniiate a 'workflow' where we call upon the jobs defined above
+workflows: 
+  version: 2.1
+  hello_world: 
+    jobs: 
+      - hello-build/hello-build
+  build_and_test: 
+    jobs: 
+      - build
+      # let's make sure that test only runs if build passes
+      - test_a: 
+          requires: 
+            - build
+      - test_b: 
+          requires:
+            - build
+      - deploy:
+          type: approval
+          requires:
+            - test_a 
+            - test_b          
+         
+>>>>>>> 53b6a0337d8015297efd43e77203468c8c7ed3b1
