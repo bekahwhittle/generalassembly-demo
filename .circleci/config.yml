@@ -15,7 +15,7 @@ jobs:
     parallelism: 3
     steps: 
       - checkout
-      - run: echo "this is test a"
+      - run: notacommand
   test_b:
     docker: 
       - image: circleci/ruby:2.4-node
