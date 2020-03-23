@@ -1,16 +1,15 @@
 version: 2.1 
 orbs:
   hello-build: circleci/hello-build@0.0.14
-# here we are going to set what we want to run - we call this 'jobs'
+
 jobs:
-  # first job we have is a build job where we will checkout the code then run a shell command
   build: 
     docker: 
       - image: circleci/ruby:2.4-node
     steps:
       - checkout
       - run: echo "building your code" 
-  # second job we have is a test job where we will also run a shell command
+  
   test_a: 
     docker: 
       - image: circleci/ruby:2.4-node
@@ -25,13 +24,13 @@ jobs:
     steps: 
       - checkout
       - run: echo "this is test b"
-  # third job we're deploying our code to production!    
+   
   deploy:     
     docker: 
       - image: circleci/ruby:2.4-node
     steps: 
       - run: echo "deploying your code"
-# to have these jobs work together we iniiate a 'workflow' where we call upon the jobs defined above
+
 workflows: 
   version: 2.1
   hello_world: 
@@ -40,14 +39,14 @@ workflows:
   build_test_deploy: 
     jobs: 
       - build
-      # let's make sure that test only runs if build passes
+
       - test_a: 
           requires: 
             - build
       - test_b: 
           requires:
             - build
-      # let's make sure we only deploy on master
+
       - deploy:
           type: approval
           filters:
