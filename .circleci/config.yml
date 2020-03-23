@@ -1,7 +1,6 @@
-# let's use a simple hello world orb for a friendly message
+version: 2.1 
 orbs:
   hello-build: circleci/hello-build@0.0.14
-version: 2.1 
 # here we are going to set what we want to run - we call this 'jobs'
 jobs:
   # first job we have is a build job where we will checkout the code then run a shell command
