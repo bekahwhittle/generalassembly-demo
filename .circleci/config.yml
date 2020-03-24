@@ -11,10 +11,8 @@ jobs:
       - run: echo "building your code" 
   
   test_a: 
-    docker: 
-      - image: circleci/ruby:2.4-node
     steps: 
-      - run: npm test
+      - run: npm install
 
   test_b:
     docker: 
