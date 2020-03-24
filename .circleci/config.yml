@@ -1,6 +1,7 @@
 version: 2.1 
 orbs:
-  hello-build: circleci/hello-build@0.0.14
+  hello-build: circleci/hello-build@0.0.14\
+  heroku: circleci/heroku@1.0.1
 
 jobs:
   build: 
@@ -21,7 +22,7 @@ jobs:
       - store_test_results:
           path: test/results
       - store_artifacts:
-          path: test/artifacts  
+          path: test 
 
   approval:     
     docker: 
