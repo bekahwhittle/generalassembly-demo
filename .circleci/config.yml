@@ -16,16 +16,11 @@ jobs:
     steps:
       - checkout
       - run: npm install
-      - run: mkdir ~/junit
-      - run:
-          command: npm test --reporter mocha-junit-reporter
-          environment:
-            MOCHA_FILE: ~/junit/test-results.xml
-          when: always
+      - run: npm test --test/test.js
       - store_test_results:
-          path: ~/junit
+          path: ~/test
       - store_artifacts:
-          path: ~/junit  
+          path: ~/test  
    
   approval:     
     docker: 
