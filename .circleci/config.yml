@@ -16,12 +16,8 @@ jobs:
     parallelism: 3
     steps:
       - checkout
-      - run: 
-        - name: Run tests
-        - command: |
-            npm install            
-            npm test --test/test.js
-
+      - run: npm install
+      - run: npm test --test/test.js
       - store_test_results:
           path: test/results
       - store_artifacts:
