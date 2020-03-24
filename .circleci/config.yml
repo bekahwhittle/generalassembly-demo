@@ -11,22 +11,22 @@ jobs:
       - run: echo "building your code" 
   
   test_a: 
+    docker: 
+      - image: circleci/node:latest
     steps: 
       - run: npm install
-
-  test_b:
-    docker: 
-      - image: circleci/ruby:2.4-node
-    parallelism: 2
-    steps: 
-      - checkout
-      - run: echo "this is test b"
    
+  approval:     
+    docker: 
+      - image: circleci/node:latest
+    steps: 
+      - run: echo "please approve this job"
+
   deploy:     
     docker: 
-      - image: circleci/ruby:2.4-node
+      - image: circleci/node:latest
     steps: 
-      - run: echo "deploying your code"
+      - run: echo "Deploying to Surge"
 
 workflows: 
   version: 2.1
@@ -36,19 +36,21 @@ workflows:
   build_test_deploy: 
     jobs: 
       - build
-
       - test_a: 
           requires: 
             - build
-      - test_b: 
-          requires:
-            - build
-
-      - deploy:
+      - approval:
           type: approval
           filters:
             branches:
               only: master
           requires:
             - test_a 
-            - test_b          
+
+      - deploy:
+          filters:
+            branches:
+              only: master
+          requires:
+            - approval
+
