@@ -32,7 +32,8 @@ jobs:
     docker: 
       - image: circleci/node:latest
     steps: 
-      - run: echo "Deploying to Surge"
+      - run: npm install surge
+      - run: surge --domain generalassembly-demo.surge.sh
 
 workflows: 
   version: 2.1
