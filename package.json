@@ -13,7 +13,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "mocha",
-    "start": "node src/assets/js/main.js"
+    "start": "node util.js"
   },
   "repository": {
     "type": "git",
