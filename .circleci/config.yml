@@ -7,10 +7,20 @@ jobs:
   build: 
     docker: 
       - image: circleci/golang:latest
+    working_directory: /tmp
     steps:
-      - checkout
-      - run: echo "building your code" 
-  
+      - run:
+          name: Creating Dummy Artifacts
+          command: |
+            echo "my artifact file" > /tmp/artifact-1;
+            mkdir /tmp/artifacts;
+            echo "my artifact files in a dir" > /tmp/artifacts/artifact-2;
+      - store_artifacts:
+          path: /tmp/artifact-1
+          destination: artifact-file
+      - store_artifacts:
+          path: /tmp/artifacts
+
   test: 
     docker: 
       - image: circleci/node:latest
