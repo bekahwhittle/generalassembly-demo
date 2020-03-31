@@ -6,7 +6,7 @@ orbs:
 jobs:
   build: 
     docker: 
-      - image: circleci/node:latest
+      - image: circleci/golang:latest
     steps:
       - checkout
       - run: echo "building your code" 
