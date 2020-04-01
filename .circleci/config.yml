@@ -14,6 +14,12 @@ jobs:
       name: node
     working_directory: /tmp
     steps:
+      - run: mkdir -p workspace
+      - run: echo "Hello, world!" > workspace/echo-output
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - echo-output
       - run:
           name: Creating Dummy Artifacts
           command: |
@@ -32,6 +38,14 @@ jobs:
     parallelism: 3
     steps:
       - checkout
+      - attach_workspace:
+          at: /tmp/workspace
+      - run: |
+          if [[ `cat /tmp/workspace/echo-output` == "Hello, world!" ]]; then
+            echo "It worked!";
+          else
+            echo "Nope!"; exit 1
+          fi
       - restore_cache:
           keys:
             - node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
@@ -51,18 +65,14 @@ jobs:
   env_exp: 
     executor:
       name: node
-    steps: # steps that comprise the `build` job
-      - checkout # check out source code to working directory
-      # Run a step to setup an environment variable
-      # Redirect MY_ENV_VAR into $BASH_ENV
+    steps:
+      - checkout
       - run: 
           name: "Setup custom environment variables"
           command: echo 'export MY_ENV_VAR="FOO"' >> $BASH_ENV
-      - run: # print the name of the branch we're on
+      - run: 
           name: "What branch am I on?"
           command: echo ${CIRCLE_BRANCH}
-      # Run another step, the same as above; note that you can
-      # invoke environment variable without curly braces.
       - run:
           name: "What branch am I on now?"
           command: echo $CIRCLE_BRANCH
@@ -111,6 +121,7 @@ workflows:
               only: master
           requires:
             - test
+            - env_exp
       - deploy:
           filters:
             branches:
