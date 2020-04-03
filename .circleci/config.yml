@@ -58,7 +58,7 @@ jobs:
           key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
       - run: npm test --test/test.js
       - store_test_results:
-          path: ./test/results
+          path: test
       - store_artifacts:
           path: test 
     
